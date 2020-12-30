@@ -7,14 +7,14 @@ import pygame;
 # Importamos GL como GL11.
 from OpenGL import GL as GL11, GLU;
 
-# util e uma package com varias utilidades que vai nos ajudar duraten o desenvolvimento.
+# util e uma package com varias utilidades que vai nos ajudar durante o desenvolvimento.
 from util import util;
 
 # Variaveis que vamos usar.
 width, height = 800, 600;         # Tamanho da janela.
 background    = [150, 150, 150];  # Cor do background do conteudo da janela.
 partialTicks  = 0;                # Tempo parcial para calcular delta e lerp.
-fps           = 75;               # FPS locker do pygame.
+fps           = 75;               # FPS da janela.
 
 # Iniciamos o pygame.
 pygame.init();
@@ -30,9 +30,9 @@ clock = pygame.time.Clock();
 
 # Inicializamos o OpenGL.
 # Como isso nao e uma aplicacao 3D, nao precisamos investir aqui em matrix.
-GLU.gluOrtho2D(0, width, height, 0); # Direcionamos os valores widht e height no ortho2D para sincronizar o tamanho com as coisas desenhadas.
+GLU.gluOrtho2D(0, width, height, 0); # Direcionamos os valores width e height no ortho2D para sincronizar o tamanho com as coisas desenhadas.
 
-# Rectangulos usados no exemplo.
+# Variaveis usadas para renderizar os retangulos.
 rectTest  = util.Rect(0, 0, 20, 20);
 rectTest2 = util.Rect(width / 2 - 20, height / 2 - 20, 20, 20);
 
@@ -56,10 +56,11 @@ while True:
 	GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 	GL11.glClearColor(background[0] / 255.0, background[1] / 255.0, background[2] / 255.0, 0);
 
-	# Renderizamos o rect.
+	# Renderizamos o rectTest com a cor vermelha em distancia do rectTest2.
 	util.color((255 - util.distance2r(rectTest, rectTest2)), 0, 0, 255);
 	util.drawRect(rectTest);
-
+	
+	# Renderizamos sem efeito de distancia, apenas cor solida.
 	util.color(255, 255, 255, 255);
 	util.drawRect(rectTest2);
 
